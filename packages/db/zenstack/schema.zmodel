@@ -1,0 +1,10 @@
+datasource db {
+    provider   = "postgresql"
+    url        = env("DATABASE_URL")
+    extensions = [vector, postgis, pgrouting]
+}
+
+plugin ts {
+    provider = "@core/typescript"
+    output   = "../generated"
+}

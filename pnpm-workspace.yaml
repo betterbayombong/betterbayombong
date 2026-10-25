@@ -3,5 +3,7 @@ packages:
   - packages/*
 
 allowBuilds:
+  "@prisma/engines": true
   dprint: true
   lefthook: true
+  prisma: true
