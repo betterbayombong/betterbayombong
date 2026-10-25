@@ -1,0 +1,33 @@
+{
+  "name": "betterbayombong",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "api:dev": "pnpm -F betterbayombong-api dev",
+    "api:build": "pnpm -F betterbayombong-api build",
+    "api:deploy": "pnpm -F betterbayombong-api deploy",
+    "web:dev": "pnpm -F betterbayombong-web dev",
+    "web:build": "pnpm -F betterbayombong-web build",
+    "web:deploy": "pnpm -F betterbayombong-web deploy",
+    "db:push": "pnpm -F @betterbayombong/db push",
+    "db:migrate": "pnpm -F @betterbayombong/db migrate",
+    "db:deploy": "pnpm -F @betterbayombong/db deploy",
+    "db:status": "pnpm -F @betterbayombong/db status",
+    "generate": "pnpm -r --if-present generate",
+    "check": "dprint check && pnpm -r --if-present check",
+    "format": "dprint fmt && pnpm -r --if-present format",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "dprint": "^0.64.3",
+    "lefthook": "^2.2.2",
+    "typescript": "^7.0.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=11",
+      "onFail": "download"
+    }
+  }
+}
