@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "api:dev": "pnpm -F betterbayombong-api dev",
-    "api:build": "pnpm -F betterbayombong-api build",
-    "api:deploy": "pnpm -F betterbayombong-api deploy",
     "web:dev": "pnpm -F betterbayombong-web dev",
     "web:build": "pnpm -F betterbayombong-web build",
     "web:deploy": "pnpm -F betterbayombong-web deploy",

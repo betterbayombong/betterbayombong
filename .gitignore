@@ -1,8 +1,11 @@
-node_modules/
-generated/
-dist/
 .cloudflare/
+.next/
+.vinext/
+dist/
+generated/
+node_modules/
+.DS_Store
 .env
 .env.*
 !*.example
-.DS_Store
+next-env.d.ts
