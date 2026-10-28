@@ -1,11 +1,9 @@
 import { defineConfig } from "vite";
 import vinext from "vinext";
 import { cloudflare } from "@cloudflare/vite-plugin";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  resolve: {
-    tsconfigPaths: true,
-  },
   plugins: [
     vinext(),
     cloudflare({
@@ -14,5 +12,6 @@ export default defineConfig({
         childEnvironments: ["ssr"],
       },
     }),
+    tsconfigPaths(),
   ],
 });
