@@ -9,7 +9,8 @@
     "exportDeclaration.sortNamedExports": "maintain"
   },
   "excludes": [
-    "pnpm-lock.yaml"
+    "pnpm-lock.yaml",
+    "skills-lock.json"
   ],
   "plugins": [
     "npm:@dprint/typescript@0.96.1",
