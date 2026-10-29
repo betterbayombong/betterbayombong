@@ -13,6 +13,9 @@ export default defineConfig({
     },
     env: {
       ASSETS: bindings.assets(),
+      HYPERDRIVE: bindings.hyperdrive({
+        id: "",
+      }),
     },
   },
 });

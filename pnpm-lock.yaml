@@ -205,12 +205,18 @@ importers:
 
   apps/web:
     dependencies:
+      '@betterbayombong/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@chakra-ui/react':
         specifier: ^3.37.0
         version: 3.37.0(@emotion/react@11.14.0(@types/react@19.3.0)(react@19.3.1)(supports-color@10.2.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.3.0)(react@19.3.1)(supports-color@10.2.2)
+      '@iconify/react':
+        specifier: ^6.0.3
+        version: 6.0.3(react@19.3.1)
       '@vinext/cloudflare':
         specifier: ^1.2.0
         version: 1.2.0(@cloudflare/vite-plugin@2.0.0-beta.v.5(@types/node@26.6.5)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0))(workerd@1.20261023.1))(cf@1.0.0-beta.22(@types/node@26.6.5))(vinext@1.3.0(@types/node@26.6.5)(@vitejs/plugin-react@6.1.2(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)))(@vitejs/plugin-rsc@0.5.38(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)))
@@ -220,9 +226,6 @@ importers:
       react-dom:
         specifier: ^19.3.1
         version: 19.3.1(react@19.3.1)
-      react-icons:
-        specifier: ^5.7.0
-        version: 5.7.0(react@19.3.1)
       vinext:
         specifier: ^1.3.0
         version: 1.3.0(@types/node@26.6.5)(@vitejs/plugin-react@6.1.2(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)))(@vitejs/plugin-rsc@0.5.38(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vite@8.3.5(@types/node@26.6.5)(jiti@2.7.0))
@@ -617,6 +620,14 @@ packages:
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
+
+  '@iconify/react@6.0.3':
+    resolution: {integrity: sha512-2x7gVs+tpUG75aXYo/0c5wPOqrFy75YSGKmuJZyuHyrHMydzXpI/+i9/USIzWXJL9WWc2BCgPVnGY2FhbeiiDQ==}
+    peerDependencies:
+      react: '>=18.0.0'
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2402,11 +2413,6 @@ packages:
     peerDependencies:
       react: ^19.3.1
 
-  react-icons@5.7.0:
-    resolution: {integrity: sha512-LBLy340Rzqy6+/yVhZKT3B/QpP1BZaesGqasf09HPOBzRarcDIFH0WwXlXQfE7q7ipxK4MSiC5DIBWURCny6fw==}
-    peerDependencies:
-      react: '*'
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -3224,6 +3230,13 @@ snapshots:
   '@hono/node-server@1.19.17(hono@4.13.13)':
     dependencies:
       hono: 4.13.13
+
+  '@iconify/react@6.0.3(react@19.3.1)':
+    dependencies:
+      '@iconify/types': 2.0.0
+      react: 19.3.1
+
+  '@iconify/types@2.0.0': {}
 
   '@img/colour@1.1.0': {}
 
@@ -5156,10 +5169,6 @@ snapshots:
     dependencies:
       react: 19.3.1
       scheduler: 0.28.0
-
-  react-icons@5.7.0(react@19.3.1):
-    dependencies:
-      react: 19.3.1
 
   react-is@16.13.1: {}
 

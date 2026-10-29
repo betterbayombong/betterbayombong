@@ -1,9 +1,18 @@
-import { HotlineBar } from "@components/hotline-bar";
+import type { Metadata } from "next";
+import { getDb } from "@lib/db";
+import { HotlinesBar } from "@components/hotlines-bar";
 
-export default function HomePage() {
+export const metadata: Metadata = {
+  title: "BetterBayombong.ph",
+};
+
+export default async function HomePage() {
+  const db = getDb();
+  const hotlines = await db.hotline.findMany();
+
   return (
     <>
-      <HotlineBar />
+      <HotlinesBar hotlines={hotlines} />
     </>
   );
 }

@@ -8,3 +8,14 @@ plugin ts {
     provider = "@core/typescript"
     output   = "../generated"
 }
+
+model Hotline {
+    id        String   @id @default(uuid(7))
+    office    String
+    number    String
+    icon      String
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("hotlines")
+}
