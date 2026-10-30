@@ -30,8 +30,19 @@ function HotlineLink({ hotline }: { hotline: Hotline }) {
 
 export function HotlinesBar({ hotlines }: { hotlines: Hotline[] }) {
   return (
-    <Box bg="red.600" overflow="hidden" py="1" fontSize="sm">
-      <Marquee.Root speed={80} spacing="12px" autoFill pauseOnInteraction>
+    <Box
+      bg="red.600"
+      overflow="hidden"
+      py="1"
+      fontSize="sm"
+    >
+      <Marquee.Root
+        speed={80}
+        spacing="12px"
+        autoFill
+        pauseOnInteraction
+        translations={{ root: "Emergency hotlines" }}
+      >
         <Marquee.Viewport>
           <Marquee.Content>
             {hotlines.map(hotline => (
