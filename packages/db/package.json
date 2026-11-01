@@ -16,13 +16,13 @@
     "format": "zen format"
   },
   "dependencies": {
-    "@zenstackhq/orm": "^3.9.8",
-    "@zenstackhq/schema": "^3.9.8",
+    "@zenstackhq/orm": "^3.10.0",
+    "@zenstackhq/schema": "^3.10.0",
     "kysely": "^0.29.7",
     "pg": "^8.23.1"
   },
   "devDependencies": {
     "@types/pg": "^8.23.1",
-    "@zenstackhq/cli": "^3.9.8"
+    "@zenstackhq/cli": "^3.10.0"
   }
 }

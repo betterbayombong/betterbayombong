@@ -4,7 +4,7 @@ export default defineConfig({
   worker: {
     name: "betterbayombong-web",
     entrypoint: "vinext/server/fetch-handler",
-    compatibilityDate: "2026-10-26",
+    compatibilityDate: "2026-10-30",
     compatibilityFlags: ["nodejs_compat"],
     assets: {
       htmlHandling: "none",
