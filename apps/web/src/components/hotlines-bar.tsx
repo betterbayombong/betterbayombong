@@ -1,47 +1,34 @@
 "use client";
 
-import type { Hotline } from "@betterbayombong/db";
-import { Box, Marquee, Link, Icon } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react/box";
+import { Link } from "@chakra-ui/react/link";
+import { Marquee } from "@chakra-ui/react/marquee";
+import { Icon } from "@chakra-ui/react/icon";
 import { Icon as Iconify } from "@iconify/react";
+import type { Hotline } from "@betterbayombong/db";
 
-function HotlineLink({ hotline }: { hotline: Hotline }) {
-  return (
-    <Link
-      href={`tel:${hotline.number}`}
-      display="inline-flex"
-      alignItems="center"
-      gap="1"
-      px="2.5"
-      py="1"
-      rounded="full"
-      whiteSpace="nowrap"
-      bg="whiteAlpha.200"
-      color="white"
-      textDecoration="none"
-      _hover={{ bg: "whiteAlpha.300" }}
-    >
-      <Icon>
-        <Iconify icon={hotline.icon} />
-      </Icon>
-      {hotline.office}: {hotline.number}
-    </Link>
-  );
+interface HotlinesBarProps {
+  hotlines: Hotline[];
 }
 
-export function HotlinesBar({ hotlines }: { hotlines: Hotline[] }) {
+interface HotlineLinkProps {
+  hotline: Hotline;
+}
+
+export function HotlinesBar({ hotlines }: HotlinesBarProps) {
   return (
     <Box
-      bg="red.600"
       overflow="hidden"
-      py="1"
+      py={1}
+      bg="red.600"
       fontSize="sm"
     >
       <Marquee.Root
-        speed={80}
-        spacing="12px"
         autoFill
         pauseOnInteraction
         translations={{ root: "Emergency hotlines" }}
+        speed={80}
+        spacing="12px"
       >
         <Marquee.Viewport>
           <Marquee.Content>
@@ -54,5 +41,29 @@ export function HotlinesBar({ hotlines }: { hotlines: Hotline[] }) {
         </Marquee.Viewport>
       </Marquee.Root>
     </Box>
+  );
+}
+
+function HotlineLink({ hotline }: HotlineLinkProps) {
+  return (
+    <Link
+      href={`tel:${hotline.number}`}
+      display="inline-flex"
+      alignItems="center"
+      gap={1}
+      px={2.5}
+      py={1}
+      rounded="full"
+      bg="whiteAlpha.200"
+      color="white"
+      whiteSpace="nowrap"
+      textDecoration="none"
+      _hover={{ bg: "whiteAlpha.300" }}
+    >
+      <Icon>
+        <Iconify icon={hotline.icon} width="100%" height="100%" />
+      </Icon>
+      {hotline.office}: {hotline.number}
+    </Link>
   );
 }

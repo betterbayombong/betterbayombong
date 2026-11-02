@@ -2,6 +2,10 @@
 
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
 
-export function Providers({ children }: { children: React.ReactNode }) {
+interface ProvidersProps {
+  children: React.ReactNode;
+}
+
+export function Providers({ children }: ProvidersProps) {
   return <ChakraProvider value={defaultSystem}>{children}</ChakraProvider>;
 }
