@@ -61,7 +61,7 @@ function HotlineLink({ hotline }: HotlineLinkProps) {
       _hover={{ bg: "whiteAlpha.300" }}
     >
       <Icon>
-        <Iconify icon={hotline.icon} width="100%" height="100%" />
+        <Iconify icon={hotline.icon} />
       </Icon>
       {hotline.office}: {hotline.number}
     </Link>

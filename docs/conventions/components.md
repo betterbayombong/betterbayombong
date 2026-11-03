@@ -1,4 +1,4 @@
-# Components Coding Style
+# Components Coding Conventions
 
 This document describes conventions for writing, reviewing, or modifying UI components in this project.
 
@@ -8,9 +8,11 @@ Chakra UI components are client components. Keep Chakra UI imports inside `"use 
 
 ## Imports
 
-Import Chakra UI from component subpaths, not from the package root:
+Import Chakra UI components from component subpaths, not from the package root:
 
 ```tsx
+import { useState } from "react";
+import NextLink from "next/link";
 import { Box } from "@chakra-ui/react/box";
 import { Flex } from "@chakra-ui/react/flex";
 import { HStack, VStack } from "@chakra-ui/react/stack";
@@ -27,20 +29,48 @@ import { Icon as Iconify } from "@iconify/react";
 
 Order imports in these groups:
 
-1. **Layout components**: `Box`, `Flex`, `HStack`, `VStack`, `Grid`, `Container`, and similar.
-2. **Primitives**: `Heading`, `Text`, `Link`, `Image`, and similar. Order as heading, text, link.
-3. **Form components**: `Field` first, then inputs (`Input`, `Checkbox`, and similar), then `Button` last.
-4. **Others**: Chakra UI `Icon`, Iconify, utilities.
+1. **React**: `react`, `react-dom`.
+2. **Next.js**: `next/link`, `next/font/google`, and other `next/*` modules.
+3. **Chakra UI**, ordered internally by component type:
+   1. **Layout components**: `Box`, `Flex`, `HStack`, `VStack`, `Grid`, `Container`, and similar.
+   2. **Primitives**: `Heading`, `Text`, `Link`, `Image`, and similar. Order as heading, text, link.
+   3. **Form components**: `Field` first, then inputs (`Input`, `Checkbox`, and similar), then `Button` last.
+   4. **Others**: `Accordion`, `Badge`, `Menu`, `SkipNav*`, and similar.
+4. **Icons**: Chakra UI `Icon`, then Iconify's `Icon`.
+5. **Workspace and local aliases**: `@lib/*`, `@components/*`, `@betterbayombong/*`.
 
+- Put all type-only imports next to the imports they belong to.
+- The package root is allowed only for provider and system setup, such as `ChakraProvider` and `defaultSystem`. Never import components from it.
 - Do not add blank lines between import groups.
 - Alias Iconify's `Icon` as `Iconify` so Chakra UI's `Icon` can keep its name.
+- Otherwise use the component name directly and alias only when two imports collide, such as `Link` and `NextLink`.
 - Use the Chakra UI `Icon` component as the wrapper and Iconify for the icon data.
 
 ```tsx
 <Icon boxSize={8}>
-  <Iconify icon="lucide:layers" width="100%" height="100%" />
+  <Iconify icon="lucide:layers" />
 </Icon>;
 ```
+
+## File structure
+
+Order sections in a component file as follows:
+
+1. **Imports**
+2. **Types and interfaces** (before any constants or helpers that use them)
+3. **Constants and variables** (`const` and `let`)
+4. **Functions and helpers**
+5. **Components**
+
+Put types and interfaces first when constants or helper functions in the file are shaped by them, so readers learn the shape before the values. A constant that does not use a type from the file, such as a font configuration, may come before the type section.
+
+Within the type section:
+
+- Put one-line union types before interfaces.
+- Order interfaces by importance: the primary types first, then the types they depend on. For example, `NavLinkEntry` and `NavMenuEntry` come before `NavColumn` and `NavLeaf`.
+- Put component props interfaces last.
+
+Within the constants section, put the data the component is built around first and secondary constants after it. For example, navigation entries come before the language menu options.
 
 ## Component structure
 
@@ -56,7 +86,11 @@ interface ExampleItemProps {
 }
 ```
 
-Define the main component first in the file, so the exported component is at the top and readers see the file's purpose immediately. Helper components, subcomponents, and local utilities go below it.
+Within the components section, define the exported main component first so readers see the file's purpose immediately. Order the remaining components by walking its render tree depth-first:
+
+- A subcomponent follows the component that first renders it.
+- Child components follow their parent immediately.
+- Shared components used across the file go last.
 
 Always declare components with a plain function declaration, not as an arrow function assigned to a `const`.
 
@@ -72,6 +106,26 @@ export function Example({ items }: ExampleProps) {
 function ExampleItem({ item }: ExampleItemProps) {
   return <Link href="#">{item}</Link>;
 }
+```
+
+## Standard components
+
+Prefer the standard Chakra UI component when one exists, and use the styled factory (`chakra.*`) only when no component fits:
+
+```tsx
+// Good
+<Button variant="ghost" ...>
+
+// Avoid
+<chakra.button ...>
+```
+
+Avoid thin wrapper components that only forward props or apply styles to a single element. Use the Chakra component directly, including when it needs Next.js navigation:
+
+```tsx
+<Link as={NextLink} href={href}>
+  {label}
+</Link>;
 ```
 
 ## Stacks
@@ -146,7 +200,7 @@ Example:
 Order style props using the CSS-Tricks "grouped by type" convention:
 
 1. **Positioning**: `position`, `zIndex`, `top`, `right`, `bottom`, `left`.
-2. **Display and box model**: `display`, `flex`, `align`, `justify`, `gap`, `w`, `h`, `maxW`, `minH`, `px`, `py`, `borderWidth`, `mx`, `my`, `ml`, `mr`.
+2. **Display and box model**: `display`, `overflow`, `boxSizing`, `flex`, `align`, `justify`, `gap`, `w`, `h`, `maxW`, `minH`, `px`, `py`, `borderWidth`, `mx`, `my`, `ml`, `mr`.
 3. **Color**: `bg`, `color`, `borderColor`.
 4. **Text**: `fontSize`, `lineHeight`, `letterSpacing`, `textAlign`.
 5. **Other**: `transition`, `cursor`, animations.
@@ -154,6 +208,7 @@ Order style props using the CSS-Tricks "grouped by type" convention:
 Notes:
 
 - Widths come before min/max widths; padding comes before border; border comes before margin.
+- `overflow` and `boxSizing` come with the box model, right after `display`.
 - Combined styles like `size` go after individual style props in the same area.
 - Semantic tokens are preferred: `bg="bg"`, `color="fg.muted"`, `borderColor="border"`.
 - Use numeric spacing tokens where possible: `gap={4}`, `px={6}`, `py={{ base: 6, md: 12 }}`, `zIndex={1}`, `boxSize={8}`.
@@ -210,6 +265,20 @@ Put state and pseudo styles last, after all regular style props. This covers `_h
 </Link>;
 ```
 
+## Control flow
+
+Always use braces for `if` statements, including single-line bodies:
+
+```tsx
+// Good
+if (isOpen) {
+  return;
+}
+
+// Avoid
+if (isOpen) return;
+```
+
 ## JSX formatting
 
 ### No blank lines between siblings
@@ -240,16 +309,21 @@ Do not put blank lines between sibling JSX elements:
 
 ### Line breaks
 
-- Components with **4–5 or more props** break onto one prop per line.
-- Components with **fewer props** stay inline.
-- Layout components (`Box`, `Flex`, `HStack`, `VStack`) only break when they have many props or the line becomes too long.
+- By default, components with **4 or more props** break onto one prop per line.
+- Up to **5 props** may stay inline when every prop name is short, every value is a short literal (a brief string or a plain number), and the tag still reads compactly. If the line feels long, break it.
+- Always break with **6 or more props**, or when a value is a computed expression, object, callback, or long string.
+- Layout components (`Box`, `Flex`, `HStack`, `VStack`) follow the same rules.
 - Text components (`Heading`, `Text`, `Link`, `Button`) always put their text content on its own line when they have **2 or more props**.
+- Break object style values onto one property per line when they have **3 or more properties**.
 
 ```tsx
 // Few props: inline
 <Box w="full" maxW="sm" mx={{ base: "auto", md: 0 }} />
 
-// 4–5+ props: one per line
+// 5 short props: still compact enough to stay inline
+<Flex h="full" align="center" justify="space-between" gap={2} />
+
+// 4+ props, or longer names and expressions: one per line
 <Input
   name="email"
   type="email"
@@ -257,6 +331,13 @@ Do not put blank lines between sibling JSX elements:
   autoFocus
   size="md"
 />
+
+// 3+ properties in a style object: one per line
+_focusVisible={{
+  outline: "2px solid",
+  outlineColor: "gray.400",
+  outlineOffset: "2px",
+}}
 
 // Text content on its own line when the component has 2+ props
 <Heading as="h1" size="2xl">
